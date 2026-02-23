@@ -10,9 +10,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/thumbs';
 
-import { projects } from '../data/projects';
-
-export default function HomeSwiper() {
+export default function HomeSwiper({ projects }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -27,7 +25,6 @@ export default function HomeSwiper() {
         mousewheel={true}
         keyboard={true}
         speed={1000}
-        freemode={true}
         thumbs={{ swiper: thumbsSwiper }}
         parallax={true}
         loop={true}

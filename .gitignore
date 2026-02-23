@@ -12,6 +12,7 @@
 
 # testing
 /coverage
+/studio-ecdm
 
 # next.js
 /.next/

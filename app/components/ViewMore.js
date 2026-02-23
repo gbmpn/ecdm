@@ -3,17 +3,8 @@ import Link from 'next/link';
 
 const VIEW_MORE_COUNT = 4;
 
-function pickRandomProjects(items, count) {
-  const pool = [...items];
-  for (let i = pool.length - 1; i > 0; i -= 1) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [pool[i], pool[j]] = [pool[j], pool[i]];
-  }
-  return pool.slice(0, count);
-}
-
 export default function ViewMore({ projects }) {
-  const randomProjects = pickRandomProjects(projects, VIEW_MORE_COUNT);
+  const visibleProjects = projects.slice(0, VIEW_MORE_COUNT);
 
   return (
     <section className="viewMore">
@@ -23,7 +14,7 @@ export default function ViewMore({ projects }) {
       </div>
 
       <div className="viewMore-grid">
-        {randomProjects.map((project) => (
+        {visibleProjects.map((project) => (
           <Link key={project.id} href={`/works/${project.slug}`} className="project-card">
             <div className="card-image">
               <Image

@@ -10,10 +10,10 @@ export default function Header() {
   const [isBlack, setIsBlack] = useState(false);
 
   const menuItems = [
-    { href: '/', label: 'Home' },
-    { href: '/river-valley', label: 'Realisations' },
+    { href: '/?view=fullscreen', label: 'Home' },
+    { href: '/?view=grid', label: 'Realisations' },
     { href: '/about', label: 'A Propos' },
-    { href: '/works/city-lights', label: 'Publications' },
+    { href: '/?view=list', label: 'Publications' },
     { href: '/about', label: 'Contact' },
   ];
 
@@ -24,8 +24,17 @@ export default function Header() {
 
   useEffect(() => {
     if (isAboutPage) {
-      setIsBlack(false);
-      return undefined;
+      const applyAboutHeaderColor = () => {
+        const isMobile = window.matchMedia('(max-width: 768px)').matches;
+        setIsBlack(isMobile);
+      };
+
+      applyAboutHeaderColor();
+      window.addEventListener('resize', applyAboutHeaderColor);
+
+      return () => {
+        window.removeEventListener('resize', applyAboutHeaderColor);
+      };
     }
 
     if (isCaseStudyPage) {
