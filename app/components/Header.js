@@ -104,14 +104,14 @@ export default function Header() {
         </nav>
         <footer className="menu-footer">
           <div className="col">
-            <span>Contact</span>
+            <span>Infos</span>
             <a>contact@ecdm.fr</a>
             <a>+33 1 44 93 20 60</a>
             <a>38 rue du Mont Thabor, 75001, Paris  </a>
           </div>
 
           <div className="col">
-            <span>Contact</span>
+            <span>Socials</span>
             <a>Linkedin</a>
             <a>Twitter</a>
             <a>Instagram</a>

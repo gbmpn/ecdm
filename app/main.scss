@@ -164,6 +164,10 @@ aside.menu {
       flex-direction: column;
       gap: 8px;
     }
+    
+    span {
+      font-weight: 600;
+    }
   }
 
   &.is-open {
@@ -288,8 +292,8 @@ aside.menu {
   }
 
   h2 {
-    font-size: 32px;
-    font-weight: bold;
+    font-size: 42px;
+    font-weight: 400;
     margin: 0 0 16px 0;
     color: #333;
   }
@@ -521,7 +525,7 @@ aside.menu {
 .list-title {
   font-size: 5vw;
   line-height: 1;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .list-location {
@@ -715,6 +719,10 @@ aside.menu {
       span, p {
         width: 50%;
         font-size: 14px;
+      }
+
+      span {
+        font-weight: 600;
       }
     }
   }
@@ -957,7 +965,7 @@ aside.menu {
     }
 
     nav ul {
-      margin-top: 72px;
+      margin-top: 122px;
 
       li {
         font-size: 13vw;
@@ -1136,7 +1144,7 @@ aside.menu {
     .row {
       flex-direction: column;
       gap: 6px;
-      padding: 10px 0 0;
+      padding: 10px 0;
 
       span,
       p {
