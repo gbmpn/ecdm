@@ -1,66 +1,105 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+
+'use client';
+
+import { useEffect, useMemo, useState } from 'react';
+import { projects } from './data/projects';
+import GridView from './components/GridView';
+import HomeSwiper from './components/HomeSwiper';
+import Filters from './components/Filters';
+import ListView from './components/ListView';
 
 export default function Home() {
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [viewMode, setViewMode] = useState('fullscreen');
+
+  const categories = useMemo(
+    () => ['all', ...new Set(projects.map((p) => p.category))],
+    [],
+  );
+
+  const filteredProjects = useMemo(
+    () => (selectedCategory === 'all'
+      ? projects
+      : projects.filter((p) => p.category === selectedCategory)),
+    [selectedCategory],
+  );
+
+  const getProjectCount = (category) => {
+    if (category === 'all') return projects.length;
+    return projects.filter((p) => p.category === category).length;
+  };
+
+  useEffect(() => {
+    window.dispatchEvent(
+      new CustomEvent('home-viewmode-change', { detail: { viewMode } }),
+    );
+  }, [viewMode]);
+
+  const resetScrollTop = () => {
+    if (window.lenis?.scrollTo) {
+      window.lenis.scrollTo(0, { immediate: true, force: true });
+      return;
+    }
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  };
+
+  const changeView = (nextView) => {
+    if (nextView === viewMode) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    resetScrollTop();
+
+    if (!prefersReducedMotion && document.startViewTransition) {
+      const transition = document.startViewTransition(() => {
+        setViewMode(nextView);
+      });
+      transition.finished.finally(() => {
+        resetScrollTop();
+      });
+      return;
+    }
+
+    setViewMode(nextView);
+    requestAnimationFrame(() => {
+      resetScrollTop();
+    });
+  };
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div className={`site-wrapper ${viewMode === 'fullscreen' ? 'is-fullscreen' : ''}`}>
+      {viewMode !== 'fullscreen' ? (
+        <Filters
+          categories={categories}
+          selectedCategory={selectedCategory}
+          onSelectCategory={setSelectedCategory}
+          getProjectCount={getProjectCount}
         />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.js file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      ) : null}
+
+      {viewMode === 'fullscreen' ? <HomeSwiper /> : null}
+      {viewMode === 'grid' ? <GridView projects={filteredProjects} /> : null}
+      {viewMode === 'list' ? <ListView projects={filteredProjects} /> : null}
+
+      <nav className={`toggleViw ${viewMode !== 'fullscreen' ? 'is-not-fullscreen' : ''}`}>
+        <button
+          className={viewMode === 'fullscreen' ? 'is-active' : ''}
+          onClick={() => changeView('fullscreen')}
+        >
+          Fullscreen
+        </button>
+        <button
+          className={viewMode === 'grid' ? 'is-active' : ''}
+          onClick={() => changeView('grid')}
+        >
+          Grid
+        </button>
+        <button
+          className={viewMode === 'list' ? 'is-active' : ''}
+          onClick={() => changeView('list')}
+        >
+          List
+        </button>
+      </nav>
     </div>
   );
 }

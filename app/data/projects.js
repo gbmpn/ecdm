@@ -1,0 +1,18 @@
+export const projects = [
+  { id: 1, image: '/01.webp', title: 'Mountain Vista', category: 'Landscape', year: '2024', location: 'Swiss Alps', slug: 'mountain-vista' },
+  { id: 2, image: '/02.webp', title: 'Urban Dreams', category: 'Architecture', year: '2024', location: 'Tokyo', slug: 'urban-dreams' },
+  { id: 3, image: '/03.webp', title: 'Ocean Waves', category: 'Seascape', year: '2023', location: 'Maldives', slug: 'ocean-waves' },
+  { id: 4, image: '/04.webp', title: 'Forest Path', category: 'Nature', year: '2024', location: 'Black Forest', slug: 'forest-path' },
+  { id: 5, image: '/05.webp', title: 'City Lights', category: 'Urban', year: '2023', location: 'New York', slug: 'city-lights' },
+  { id: 6, image: '/06.webp', title: 'Desert Sunset', category: 'Landscape', year: '2024', location: 'Sahara', slug: 'desert-sunset' },
+  { id: 7, image: '/07.webp', title: 'Modern Architecture', category: 'Architecture', year: '2024', location: 'Dubai', slug: 'modern-architecture' },
+  { id: 8, image: '/08.webp', title: 'Coastal Cliffs', category: 'Seascape', year: '2023', location: 'Ireland', slug: 'coastal-cliffs' },
+  { id: 9, image: '/09.webp', title: 'Mountain Lake', category: 'Landscape', year: '2024', location: 'Canada', slug: 'mountain-lake' },
+  { id: 10, image: '/10.webp', title: 'Street Art', category: 'Urban', year: '2023', location: 'Berlin', slug: 'street-art' },
+  { id: 11, image: '/11.webp', title: 'Tropical Paradise', category: 'Nature', year: '2024', location: 'Bali', slug: 'tropical-paradise' },
+  { id: 12, image: '/12.webp', title: 'Skyline View', category: 'Architecture', year: '2024', location: 'Hong Kong', slug: 'skyline-view' },
+  { id: 13, image: '/13.webp', title: 'River Valley', category: 'Landscape', year: '2023', location: 'Norway', slug: 'river-valley' },
+  { id: 14, image: '/14.webp', title: 'Historic Quarter', category: 'Architecture', year: '2024', location: 'Prague', slug: 'historic-quarter' },
+  { id: 15, image: '/15.webp', title: 'Sunset Beach', category: 'Seascape', year: '2023', location: 'California', slug: 'sunset-beach' },
+  { id: 16, image: '/16.webp', title: 'Alpine Meadow', category: 'Nature', year: '2024', location: 'Austria', slug: 'alpine-meadow' },
+];
