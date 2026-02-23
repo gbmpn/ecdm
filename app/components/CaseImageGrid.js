@@ -17,15 +17,16 @@ export default function CaseImageGrid({ images, title }) {
       imageNodes.forEach((node) => {
         gsap.fromTo(
           node,
-          { scale: 1.1, transformOrigin: '50% 50%' },
+          { scale: 1.065, transformOrigin: '50% 50%', force3D: true },
           {
             scale: 1,
             ease: 'none',
             scrollTrigger: {
               trigger: node,
-              start: 'top 100%',
-              end: 'top 12%',
-              scrub: 1.8,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: true,
+              fastScrollEnd: false,
               invalidateOnRefresh: true,
             },
           },
@@ -34,9 +35,20 @@ export default function CaseImageGrid({ images, title }) {
     }, rootRef);
 
     const offLenisScroll = window.lenis?.on?.('scroll', ScrollTrigger.update);
+    const imageElements = rootRef.current?.querySelectorAll('img') ?? [];
+    const loadHandlers = [];
+    imageElements.forEach((img) => {
+      if (img.complete) return;
+      const onLoad = () => ScrollTrigger.refresh();
+      img.addEventListener('load', onLoad);
+      loadHandlers.push([img, onLoad]);
+    });
     ScrollTrigger.refresh();
 
     return () => {
+      loadHandlers.forEach(([img, onLoad]) => {
+        img.removeEventListener('load', onLoad);
+      });
       if (offLenisScroll) offLenisScroll();
       ctx.revert();
     };
