@@ -46,6 +46,133 @@ a {
   }
 }
 
+@keyframes slide-l-out {
+ 
+
+    0% {
+      clip-path: inset(0 0 0 0); /* fully visible */
+      filter: blur(0);
+    }
+
+     100% {
+      clip-path: inset(100% 0% 0% 0%); /* hidden (bottom) */
+      filter: blur(4px);
+    }
+}
+
+
+.loader {
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  display: grid;
+  place-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  clip-path: inset(0 0 0% 0);
+  transition: clip-path 1.5s cubic-bezier(0.65, 0, 0.35, 1);
+
+  &.is-off {
+   animation: slide-l-out 1.2s cubic-bezier(0.86,0,0.07,1) forwards;
+    pointer-events: none;
+  }
+
+  .bg-img {
+    opacity: 0.5;
+    position: absolute;
+  }
+
+  .row {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    gap: 100px;
+    margin-left: -10vw;
+    
+    @media (max-width: 768px) {
+      gap: 50px;
+      margin-left: -5vw;
+    }
+    
+    @media (max-width: 480px) {
+      gap: 30px;
+      margin-left: 0;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  span {
+    color: white;
+    font-size: 3vw;
+    
+    @media (max-width: 768px) {
+      font-size: 4vw;
+    }
+    
+    @media (max-width: 480px) {
+      font-size: 5vw;
+    }
+  }
+  span {
+    padding: 20px;
+  }
+  span:nth-child(2) {
+    padding: 20px 90px;
+    background-color: black;
+    mix-blend-mode: multiply;
+    position: relative;
+    color: #464646;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0; 
+      left: 0;
+      width: 0%;
+      height: 100%;
+      background-color: white;
+      z-index: -1;
+      animation: loader-sweep 2.6s cubic-bezier(0.65, 0, 0.35, 1) both;
+    }
+  }
+
+  span:nth-child(1) {
+    animation: blink 1.5s ease-in-out infinite;
+  }
+
+  span:nth-child(3) {
+    min-width: 200px;
+    text-align: right;
+
+     @media (max-width: 768px) {
+      text-align: center;
+     }
+
+  }
+
+  @keyframes blink {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.3;
+    }
+  }
+}
+
+@keyframes loader-sweep {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
 
 header {
   position: fixed;

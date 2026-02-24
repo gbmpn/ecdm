@@ -3,6 +3,7 @@
 
 import LenisProvider from './components/LenisProvider';
 import Header from './components/Header';
+import Loader from './components/Loader';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 // import NavigationTransition from './components/NavigationTransition';
@@ -45,6 +46,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         {/* <NavigationTransition /> */}
+
+        <Loader/>
         <Header/>
         <LenisProvider>
         <main ref={mainRef} className="view-stage">{children}</main>
