@@ -19,7 +19,7 @@ export default function Loader() {
     // Image cycling animation
     const imageInterval = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % images.length);
-    }, 100); // Change image every 50ms for faster GIF-like effect
+    }, 150); // Change image every 50ms for faster GIF-like effect
 
     const animate = () => {
       const elapsed = Date.now() - startTime;
